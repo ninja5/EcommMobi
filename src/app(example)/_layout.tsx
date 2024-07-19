@@ -1,14 +1,12 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Slot, Stack } from 'expo-router';
+import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/components/useColorScheme';
-import AuthProvider from '@/src/providers/AuthProvider';
-import { ImageBackground, View } from 'react-native';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -52,16 +50,10 @@ function RootLayoutNav() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AuthProvider>
-        {/* <ImageBackground source={require('@/assets/images/background3.png')} resizeMode='cover' style={{ height: '100%', width: '100%', aspectRatio: 1 }}> */}
-        <Slot />
-        {/* </ImageBackground> */}
-        {/* <Slot /> */}
-        {/* <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      </Stack> */}
-      </AuthProvider>
+      <Stack>
+        {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="modal" options={{ presentation: 'modal' }} /> */}
+      </Stack>
     </ThemeProvider>
   );
 }
