@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import { Link, router, Stack } from 'expo-router'
 import supabase from '@/lib/supabase'
@@ -36,7 +36,8 @@ const SignInScreen = () => {
 
 
   return (
-    <View style={styles.container}>
+    // <View style={styles.container}>
+    <View className="flex-1 items-center justify-center bg-white">
       <Stack.Screen options={{ title: 'Sign up' }} />
       <Text style={styles.label}>Email</Text>
       <TextInput

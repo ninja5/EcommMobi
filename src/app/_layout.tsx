@@ -9,7 +9,7 @@ import 'react-native-reanimated';
 import { useColorScheme } from '@/components/useColorScheme';
 import AuthProvider from '@/src/providers/AuthProvider';
 import { ImageBackground, View } from 'react-native';
-
+import "@/styles";
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
