@@ -1,8 +1,9 @@
-import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Alert, KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View } from 'react-native'
 import React, { useState } from 'react'
 import { Link, router, Stack } from 'expo-router'
 import supabase from '@/lib/supabase'
 import styles from '@/constants/Styles'
+import AzButton from '@/components/AzButton'
 
 const SignInScreen = () => {
   const [email, setEmail] = useState('')
@@ -36,72 +37,39 @@ const SignInScreen = () => {
 
 
   return (
-    // <View style={styles.container}>
-    <View className="flex-1 items-center justify-center bg-white">
-      <Stack.Screen options={{ title: 'Sign up' }} />
-      <Text style={styles.label}>Email</Text>
-      <TextInput
-        value={email}
-        onChangeText={setEmail}
-        placeholder='your@email.com'
-        style={styles.input}
-      />
-      <Text style={styles.label}>Password</Text>
-      <TextInput
-        value={password}
-        onChangeText={setPassword}
-        placeholder=''
-        style={styles.input}
-        secureTextEntry
-      />
-      <Text style={[styles.label, { color: 'red', fontSize: 18 }]}>{error} </Text>
-      <TouchableOpacity style={styles.opacity}
+    <KeyboardAvoidingView
+      className="flex-1 items-center justify-center bg-amber-300 web:w-1/2 web:self-center"
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      style={{ flex: 1 }}>
+      <Stack.Screen options={{ title: 'Sign in' }} />
+      <Text className='p-3 text-3xl'>Welcome back</Text>
+      <View className='w-2/3 web:w-1/3 space-y-2 border border-teal-800 rounded-md p-3'>
+        <Text className='text-xl'>Email</Text>
+        <TextInput
+          className='text-xl pl-2 border rounded-md border-teal-800'
+          value={email}
+          onChangeText={setEmail}
+          placeholder='your@email.com'
+        />
+        <Text className='text-xl'>Password</Text>
+        <TextInput
+          className='pl-2 text-xl border rounded-md  border-teal-800'
+          value={password}
+          onChangeText={setPassword}
+          placeholder=''
+          /*style={styles.input}*/
+          secureTextEntry
+        />
+        <Text className='text-2xl text-red-600'>{error} </Text>
+      </View>
+      {/* <Pressable className='mt-4 border border-teal-800 bg-amber-500 rounded-full w-2/3 web:w-1/3 p-3'
         onPress={signInWithEmail} disabled={loading} >
-        <Text style={styles.textButton}>Sign In</Text>
-      </TouchableOpacity>
-      <Text style={styles.label}> </Text>
-      <Link href={'/sign-up'} style={styles.textButton}>Sign Up</Link>
-    </View>
+        <Text className='self-center'>Sign In</Text>
+      </Pressable> */}
+      <AzButton text='Sign In' onPress={signInWithEmail} disabled={loading} />
+      <Link className='mt-8' href={'/sign-up'} >Sign Up</Link>
+    </KeyboardAvoidingView>
   )
 }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     padding: 20,
-//     // justifyContent: 'center',
-//     // flex: 1,
-//     // width: '100%'
-//   },
-//   input: {
-//     borderWidth: 1,
-//     borderColor: '#1E90FF',
-//     padding: 10,
-//     marginTop: 5,
-//     marginBottom: 20,
-//     backgroundColor: '#FFFACD',
-//     borderRadius: 5,
-//     fontSize: 20,
-//   },
-//   label: {
-//     color: '#1E90FF',
-//     fontSize: 25,
-//   },
-//   textButton: {
-//     alignSelf: 'center',
-//     fontWeight: 'bold',
-//     color: '#1E90FF', // Colors.light.tint,
-//     marginVertical: 15,
-//     fontSize: 20,
-//   },
-//   opacity: {
-//     alignSelf: 'center',
-//     borderColor: '#1E90FF',
-//     borderWidth: 1,
-//     paddingHorizontal: 20,
-//     borderRadius: 5,
-//     backgroundColor: '#FFFACD',
-//     width: '100%'
-//   }
-// })
 
 export default SignInScreen

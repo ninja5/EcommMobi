@@ -8,8 +8,11 @@ import 'react-native-reanimated';
 
 import { useColorScheme } from '@/components/useColorScheme';
 import AuthProvider from '@/src/providers/AuthProvider';
-import { ImageBackground, View } from 'react-native';
 import "@/styles";
+import { NativeWindStyleSheet } from 'nativewind/dist/style-sheet';
+import { SafeAreaView } from 'react-native';
+
+
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -43,7 +46,9 @@ export default function RootLayout() {
   if (!loaded) {
     return null;
   }
-
+  NativeWindStyleSheet.setOutput({
+    default: "native",
+  });
   return <RootLayoutNav />;
 }
 
@@ -51,17 +56,9 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AuthProvider>
-        {/* <ImageBackground source={require('@/assets/images/background3.png')} resizeMode='cover' style={{ height: '100%', width: '100%', aspectRatio: 1 }}> */}
-        <Slot />
-        {/* </ImageBackground> */}
-        {/* <Slot /> */}
-        {/* <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      </Stack> */}
-      </AuthProvider>
-    </ThemeProvider>
+    <AuthProvider>
+      <Slot />
+    </AuthProvider>
+
   );
 }

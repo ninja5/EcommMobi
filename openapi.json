@@ -1,0 +1,474 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "description": "",
+        "title": "standard public schema",
+        "version": "12.2.1 (d3f7cba)"
+    },
+    "paths": {
+        "/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                },
+                "summary": "OpenAPI description (this document)",
+                "tags": [
+                    "Introspection"
+                ]
+            }
+        },
+        "/profiles": {
+            "get": {
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/rowFilter.profiles.id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/rowFilter.profiles.updated_at"
+                    },
+                    {
+                        "$ref": "#/components/parameters/rowFilter.profiles.username"
+                    },
+                    {
+                        "$ref": "#/components/parameters/rowFilter.profiles.full_name"
+                    },
+                    {
+                        "$ref": "#/components/parameters/rowFilter.profiles.avatar_url"
+                    },
+                    {
+                        "$ref": "#/components/parameters/rowFilter.profiles.website"
+                    },
+                    {
+                        "$ref": "#/components/parameters/rowFilter.profiles.profile"
+                    },
+                    {
+                        "$ref": "#/components/parameters/select"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    },
+                    {
+                        "$ref": "#/components/parameters/range"
+                    },
+                    {
+                        "$ref": "#/components/parameters/rangeUnit"
+                    },
+                    {
+                        "$ref": "#/components/parameters/offset"
+                    },
+                    {
+                        "$ref": "#/components/parameters/limit"
+                    },
+                    {
+                        "$ref": "#/components/parameters/preferCount"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/profiles"
+                                    },
+                                    "type": "array"
+                                }
+                            },
+                            "application/vnd.pgrst.object+json;nulls=stripped": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/profiles"
+                                    },
+                                    "type": "array"
+                                }
+                            },
+                            "application/vnd.pgrst.object+json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/profiles"
+                                    },
+                                    "type": "array"
+                                }
+                            },
+                            "text/csv": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/profiles"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        }
+                    },
+                    "206": {
+                        "description": "Partial Content"
+                    }
+                },
+                "tags": [
+                    "profiles"
+                ]
+            },
+            "post": {
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/select"
+                    },
+                    {
+                        "$ref": "#/components/parameters/preferPost"
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/profiles"
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                },
+                "tags": [
+                    "profiles"
+                ]
+            },
+            "delete": {
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/rowFilter.profiles.id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/rowFilter.profiles.updated_at"
+                    },
+                    {
+                        "$ref": "#/components/parameters/rowFilter.profiles.username"
+                    },
+                    {
+                        "$ref": "#/components/parameters/rowFilter.profiles.full_name"
+                    },
+                    {
+                        "$ref": "#/components/parameters/rowFilter.profiles.avatar_url"
+                    },
+                    {
+                        "$ref": "#/components/parameters/rowFilter.profiles.website"
+                    },
+                    {
+                        "$ref": "#/components/parameters/rowFilter.profiles.profile"
+                    },
+                    {
+                        "$ref": "#/components/parameters/preferReturn"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                },
+                "tags": [
+                    "profiles"
+                ]
+            },
+            "patch": {
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/rowFilter.profiles.id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/rowFilter.profiles.updated_at"
+                    },
+                    {
+                        "$ref": "#/components/parameters/rowFilter.profiles.username"
+                    },
+                    {
+                        "$ref": "#/components/parameters/rowFilter.profiles.full_name"
+                    },
+                    {
+                        "$ref": "#/components/parameters/rowFilter.profiles.avatar_url"
+                    },
+                    {
+                        "$ref": "#/components/parameters/rowFilter.profiles.website"
+                    },
+                    {
+                        "$ref": "#/components/parameters/rowFilter.profiles.profile"
+                    },
+                    {
+                        "$ref": "#/components/parameters/preferReturn"
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/profiles"
+                },
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                },
+                "tags": [
+                    "profiles"
+                ]
+            }
+        }
+    },
+    "externalDocs": {
+        "description": "PostgREST Documentation",
+        "url": "https://postgrest.org/en/v12/api.html"
+    },
+    "servers": [
+        {
+            "url": "https://uzimwvwgzdxndthrijfd.supabase.co:443"
+        }
+    ],
+    "components": {
+        "parameters": {
+            "preferParams": {
+                "name": "Prefer",
+                "description": "Preference",
+                "required": false,
+                "in": "header",
+                "schema": {
+                    "type": "string",
+                    "enum": [
+                        "params=single-object"
+                    ]
+                }
+            },
+            "preferReturn": {
+                "name": "Prefer",
+                "description": "Preference",
+                "required": false,
+                "in": "header",
+                "schema": {
+                    "type": "string",
+                    "enum": [
+                        "return=representation",
+                        "return=minimal",
+                        "return=none"
+                    ]
+                }
+            },
+            "preferCount": {
+                "name": "Prefer",
+                "description": "Preference",
+                "required": false,
+                "in": "header",
+                "schema": {
+                    "type": "string",
+                    "enum": [
+                        "count=none"
+                    ]
+                }
+            },
+            "preferPost": {
+                "name": "Prefer",
+                "description": "Preference",
+                "required": false,
+                "in": "header",
+                "schema": {
+                    "type": "string",
+                    "enum": [
+                        "return=representation",
+                        "return=minimal",
+                        "return=none",
+                        "resolution=ignore-duplicates",
+                        "resolution=merge-duplicates"
+                    ]
+                }
+            },
+            "select": {
+                "name": "select",
+                "description": "Filtering Columns",
+                "required": false,
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "on_conflict": {
+                "name": "on_conflict",
+                "description": "On Conflict",
+                "required": false,
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "order": {
+                "name": "order",
+                "description": "Ordering",
+                "required": false,
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "range": {
+                "name": "Range",
+                "description": "Limiting and Pagination",
+                "required": false,
+                "in": "header",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "rangeUnit": {
+                "name": "Range-Unit",
+                "description": "Limiting and Pagination",
+                "required": false,
+                "in": "header",
+                "schema": {
+                    "type": "string",
+                    "default": "items"
+                }
+            },
+            "offset": {
+                "name": "offset",
+                "description": "Limiting and Pagination",
+                "required": false,
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "limit": {
+                "name": "limit",
+                "description": "Limiting and Pagination",
+                "required": false,
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "rowFilter.profiles.id": {
+                "name": "id",
+                "required": false,
+                "in": "query",
+                "schema": {
+                    "type": "string",
+                    "format": "uuid"
+                }
+            },
+            "rowFilter.profiles.updated_at": {
+                "name": "updated_at",
+                "required": false,
+                "in": "query",
+                "schema": {
+                    "type": "string",
+                    "format": "timestamp with time zone"
+                }
+            },
+            "rowFilter.profiles.username": {
+                "name": "username",
+                "required": false,
+                "in": "query",
+                "schema": {
+                    "type": "string",
+                    "format": "text"
+                }
+            },
+            "rowFilter.profiles.full_name": {
+                "name": "full_name",
+                "required": false,
+                "in": "query",
+                "schema": {
+                    "type": "string",
+                    "format": "text"
+                }
+            },
+            "rowFilter.profiles.avatar_url": {
+                "name": "avatar_url",
+                "required": false,
+                "in": "query",
+                "schema": {
+                    "type": "string",
+                    "format": "text"
+                }
+            },
+            "rowFilter.profiles.website": {
+                "name": "website",
+                "required": false,
+                "in": "query",
+                "schema": {
+                    "type": "string",
+                    "format": "text"
+                }
+            },
+            "rowFilter.profiles.profile": {
+                "name": "profile",
+                "required": false,
+                "in": "query",
+                "schema": {
+                    "type": "string",
+                    "format": "text"
+                }
+            }
+        },
+        "requestBodies": {
+            "profiles": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/profiles"
+                        }
+                    },
+                    "application/vnd.pgrst.object+json;nulls=stripped": {
+                        "schema": {
+                            "$ref": "#/components/schemas/profiles"
+                        }
+                    },
+                    "application/vnd.pgrst.object+json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/profiles"
+                        }
+                    },
+                    "text/csv": {
+                        "schema": {
+                            "$ref": "#/components/schemas/profiles"
+                        }
+                    }
+                },
+                "description": "profiles"
+            }
+        },
+        "schemas": {
+            "profiles": {
+                "required": [
+                    "id",
+                    "profile"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "Note:\nThis is a Primary Key.<pk/>",
+                        "format": "uuid",
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "format": "timestamp with time zone",
+                        "type": "string"
+                    },
+                    "username": {
+                        "format": "text",
+                        "type": "string"
+                    },
+                    "full_name": {
+                        "format": "text",
+                        "type": "string"
+                    },
+                    "avatar_url": {
+                        "format": "text",
+                        "type": "string"
+                    },
+                    "website": {
+                        "format": "text",
+                        "type": "string"
+                    },
+                    "profile": {
+                        "default": "USER",
+                        "format": "text",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}

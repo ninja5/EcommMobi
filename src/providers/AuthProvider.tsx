@@ -1,24 +1,74 @@
 import { supabase } from '@/lib/supabase';
 import { Session } from '@supabase/supabase-js';
 import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
+interface UserAuth {
+    avatar_url?: string,
+    full_name: string,
+    id: string,
+    profile: "USER" | "Afmin",
+    username: string,
+    website?: string,
+    email: string
+}
 type AuthData = {
     session: Session | null,
     loading: boolean,
     isAdmin: boolean,
+    user: UserAuth,
+    modUser: (params: UserAuth) => Promise<void>,
 }
 
 const AuthContext = createContext<AuthData>({
     session: null,
     loading: true,
     isAdmin: false,
+    user: {
+        full_name: '',
+        id: '',
+        profile: 'USER',
+        username: '',
+        email: '',
+    },
+    modUser: async function (params: UserAuth) {
+    }
 })
 
 export default function AuthProvider({ children }: PropsWithChildren) {
     const [session, setSession] = useState<Session | null>(null)
-    const [profile, setProfile] = useState(null)
+    const [user, setUser] = useState<UserAuth>({
+        full_name: '',
+        id: '',
+        profile: 'USER',
+        username: '',
+        email: '',
+
+    })
     const [loading, setLoading] = useState(true)
     const [isAdmin, setIsAdmin] = useState(false)
+    const modUser = async function (params: UserAuth) {
+        const { full_name, username, id } = params
+        setLoading(true)
+        const { error, data: newProduct } = await supabase
+            .from('profiles')
+            .update({
+                full_name: full_name,
+                username: username,
+            })
+            .eq('id', id)
+            .select()
+            .single()
+        if (error) {
+            setLoading(false)
+            throw new Error(error.message)
+        } else {
+            setUser(params)
+        }
+        setLoading(false)
+        console.log('====================================');
+        console.log('Asybc AuthProvider modUser ', error, newProduct);
+        console.log('====================================');
 
+    }
     console.log('====================================');
     console.log('function AuthProvider');
     console.log('====================================');
@@ -27,7 +77,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
         const fetchSession = async () => {
             const { data } = await supabase.auth.getSession()
             setSession(data.session)
-            console.log('Session:', data);
+            console.log('Session:', data, ' user:', user);
             setLoading(false)
         }
         fetchSession()
@@ -39,11 +89,12 @@ export default function AuthProvider({ children }: PropsWithChildren) {
                 if (session) {
                     const { data: group } = await supabase
                         .from('profiles')
-                        .select('group')
+                        .select('*')
                         .eq('id', session.user.id)
                         .single()
-                    //console.log('Select result is ', group);
-                    setIsAdmin(group?.group === "ADMIN")
+                    console.log('ProfileSelect result is ', group, ' for user  ', session.user.id);
+                    setIsAdmin(group?.profile === "ADMIN")
+                    setUser({ ...user, ...group, email: session.user.email })
 
                 }
                 setLoading(false)
@@ -52,7 +103,11 @@ export default function AuthProvider({ children }: PropsWithChildren) {
             setSession(session)
         })
     }, [])
-    return <AuthContext.Provider value={{ session, loading, isAdmin }}>{children}</AuthContext.Provider>
+
+
+    return <AuthContext.Provider value={{
+        session, loading, isAdmin, user, modUser
+    }}>{children}</AuthContext.Provider>
 }
 
 export const useAuth = () => useContext(AuthContext)

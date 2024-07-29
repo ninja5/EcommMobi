@@ -1,23 +1,62 @@
-import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Alert, Keyboard, KeyboardAvoidingView, Platform, Pressable, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import React, { useState } from 'react'
-import { Link, Stack } from 'expo-router'
+import { Link, router, Stack } from 'expo-router'
 import supabase from '@/lib/supabase'
 import styles from '@/constants/Styles'
+import AzButton from '@/components/AzButton'
 const signUpScreen = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState('')
 
     async function signUpWithEmail() {
         setLoading(true)
         const { error } = await supabase.auth.signUp({
             email: email,
             password: password
-        }
-        )
-        if (error) Alert.alert(error.message)
+        })
         setLoading(false)
+        if (error) {
+            Alert.alert(error.message)
+            setError(error.message)
+        } else
+            router.back()
+
     }
+    return (
+        <KeyboardAvoidingView
+            className="flex-1 items-center justify-center bg-amber-300 web:w-1/2 web:self-center"
+            behavior={Platform.OS === "ios" ? "padding" : undefined}
+            style={{ flex: 1 }}>
+            <Stack.Screen options={{ title: 'Sign up' }} />
+            <Text className='p-3 text-3xl'>New user</Text>
+            <View className='w-2/3 web:w-1/3 space-y-2 border border-teal-800 rounded-md p-3'>
+                <Text className='text-xl'>Email</Text>
+                <TextInput
+                    className='text-xl pl-2 border rounded-md border-teal-800'
+                    value={email}
+                    onChangeText={setEmail}
+                    placeholder='your@email.com'
+                />
+                <Text className='text-xl'>Password</Text>
+                <TextInput
+                    className='pl-2 text-xl border rounded-md  border-teal-800'
+                    value={password}
+                    onChangeText={setPassword}
+                    placeholder=''
+                    secureTextEntry
+                />
+                <Text className='text-2xl text-red-600'>{error} </Text>
+            </View>
+            {/* <Pressable className='mt-4 border border-teal-800 bg-amber-500 rounded-full w-2/3 web:w-1/3 p-3'
+                onPress={signUpWithEmail} disabled={loading} >
+                <Text className='self-center'>Sign Up</Text>
+            </Pressable> */}
+            <AzButton text='Sign Up' onPress={signUpWithEmail} disabled={loading} />
+            <Link className='mt-8' href={'/sign-in'}>Sign In</Link>
+        </KeyboardAvoidingView>
+    )
     return (
         <View style={styles.container}>
             <Stack.Screen options={{ title: 'Sign up' }} />
