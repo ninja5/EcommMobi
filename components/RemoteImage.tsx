@@ -5,7 +5,7 @@ import { supabase } from '../lib/supabase';
 
 type RemoteImageProps = {
     path?: string | null;
-    fallback: string;
+    fallback: number;
 } & Omit<ComponentProps<typeof Image>, 'source'>;
 
 const RemoteImage = ({ path, fallback, ...imageProps }: RemoteImageProps) => {
@@ -38,7 +38,10 @@ const RemoteImage = ({ path, fallback, ...imageProps }: RemoteImageProps) => {
     }, [path]);
 
     if (!image) {
+        console.log('hit me harddd..');
+
     }
+    //console.log('remote image is', image.u);
 
     return <Image source={{ uri: image }} defaultSource={fallback} {...imageProps} />;
 };

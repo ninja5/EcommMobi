@@ -1,4 +1,4 @@
-import { View, Text, Platform, SafeAreaView, ScrollView, Image, Pressable } from 'react-native'
+import { View, Text, Platform, SafeAreaView, ScrollView, Image, Pressable, KeyboardAvoidingView } from 'react-native'
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react'
 import { useRouter } from 'expo-router';
@@ -109,9 +109,14 @@ const CreateProductScreen = () => {
     }
 
     return (
-        <SafeAreaView className='w-full web:w-2/3 self-center items-center justify-center p-6 flex-1 bg-amber-300 border border-blue-700'>
+        <KeyboardAvoidingView
+            className='bg-amber-300'
+            behavior={Platform.OS === "ios" ? "padding" : undefined}
+            style={{ flex: 1 }}
+        >
+            {/* <SafeAreaView className='w-full web:w-2/3 self-center items-center justify-center p-6 flex-1 bg-amber-300 border border-blue-700'> */}
             {/* <Stack.Screen options={{ title: 'Create new product' }} /> */}
-            <ScrollView className='w-full h-full flex-1'
+            <ScrollView className='w-fulll h-fulll flex-1'
                 contentContainerStyle={{ 'alignItems': 'center' }}>
                 <Pressable onPress={pickImage} className='m-6'>
                     <Image
@@ -120,7 +125,7 @@ const CreateProductScreen = () => {
                         className='w-36 max-h-36 aspect-square self-center border border-green-800 rounded-xl'
                     />
                 </Pressable>
-                <View className='flex-1 w-full h-full border border-red-600 items-center'>
+                <View className='flex-1 web:w-2/3 p-5 border border-red-600 items-center'>
                     <AzTextInput
                         title={'Name'}
                         value={name}
@@ -147,14 +152,15 @@ const CreateProductScreen = () => {
                         disabled={false} />
                 </View>
                 <Text className='text-red-800 mt-4'>{errors}</Text>
-                <View className=' border flex-row w-full p-3 items-center justify-between'>
+                <View className=' border flex-row web:w-1/3 p-3 items-center justify-between'>
                     <AzButton text='Cancel' onPress={() => router.back()} />
                     <Text>  </Text>
                     <AzButton text='Persist' onPress={onCreate} />
                 </View>
             </ScrollView>
             <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
-        </SafeAreaView>
+            {/* </SafeAreaView> */}
+        </KeyboardAvoidingView>
     )
 }
 
