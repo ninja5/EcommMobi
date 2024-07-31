@@ -28,16 +28,21 @@ export const useProduct = (id: number)=>{
 export const useInsertProduct = ()=>{
 	const queryClinet = useQueryClient()
 	return useMutation({
-		async mutationFn(data:any) {
+		async mutationFn(data: any) {
+			console.log('mutation insert', data);
+			
 			const{error, data: newProduct} = await supabase
 			.from('products')
 			.insert({
 				name: data.name,
-				image: data.image,
+				description: data.description,
+				picture: data.image,
 				price: data.price,
 			})
 			.single()
-			if(error){
+			if (error) {
+				console.log('inser error', error);
+				
 				throw new Error(error.message)
 			}
 			return newProduct

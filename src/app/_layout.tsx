@@ -11,6 +11,7 @@ import AuthProvider from '@/src/providers/AuthProvider';
 import "@/styles";
 import { NativeWindStyleSheet } from 'nativewind/dist/style-sheet';
 import { SafeAreaView } from 'react-native';
+import QueryProvider from '../providers/QueryProvider';
 
 
 export {
@@ -57,7 +58,9 @@ function RootLayoutNav() {
 
   return (
     <AuthProvider>
-      <Slot />
+      <QueryProvider>
+        <Slot />
+      </QueryProvider>
     </AuthProvider>
 
   );

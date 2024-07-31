@@ -59,7 +59,7 @@ const profileScreen = () => {
                         <>
                             <View className='border rounded-lg m-8' >
                                 <Text className='self-start  -mt-5 bg-amber-300 ml-3 px-1  text-2xl'>User details</Text>
-                                <View className='ml-5'>
+                                <View className='m-5 web:w-1/2'>
                                     <AzTextInput
                                         title="Full Name"
                                         value={currentUser.full_name}

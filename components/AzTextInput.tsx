@@ -33,9 +33,9 @@ const AzTextInput = forwardRef<View | null, CompProps>(
     ({ title, value, handleChangeText, placeholder, otherStyles, keyboardType, ...pinputProps }, ref) => {
         const [showPassword, setshowPassword] = useState(false)
         return (
-            <View className='space-y-2'>
+            <View className='mt-4 space-y-2'>
                 <Text className={`ml-3 text-base text-gray-600 font-medium ${otherStyles}`}>{title}</Text>
-                <View className='border w-full web:w-1/3 flex-row h-14 bg-black rounded-2xl border-amber-700 focus:border-amber-900 items-center'>
+                <View className='border w-full flex-row h-14 bg-black rounded-2xl border-amber-700 focus:border-amber-900 items-center'>
                     <TextInput
                         className='flex-1 text-white h-14 rounded-2xl px-4 font-semibold text-base'
                         value={value || ""}
