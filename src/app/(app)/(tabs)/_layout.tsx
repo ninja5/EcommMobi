@@ -9,9 +9,11 @@ export default function TabLayout() {
         // <QueryProvider>
         <Tabs screenOptions={{ tabBarActiveTintColor: 'blue' }}>
             <Tabs.Screen
-                name="index"
+                name='(product)'
+                // component={HomeScreen}
                 options={{
                     title: 'Home',
+                    // href: '/index2',
                     tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
                 }}
             />
@@ -23,9 +25,11 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
-                name='product'
+                name='(product-admin)'
                 options={{
                     title: "Products",
+                    //href: 'product',
+                    headerShown: false,
                     tabBarIcon: ({ color }) => <FontAwesome size={28} name="product-hunt" color={color} />,
                     ...(isAdmin ? {} : { href: null }),
                 }}

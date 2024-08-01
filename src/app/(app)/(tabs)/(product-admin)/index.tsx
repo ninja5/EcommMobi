@@ -4,7 +4,7 @@ import { default_image } from '@/constants/Colors'
 import ProductListItem from '@/components/ProductListItem'
 import { useProductList } from '@/src/api/products'
 import { useAuth } from '@/src/providers/AuthProvider'
-import { useRouter } from 'expo-router'
+import { Stack, useRouter } from 'expo-router'
 import AzButton from '@/components/AzButton'
 
 const ProductScreen = () => {
@@ -26,6 +26,7 @@ const ProductScreen = () => {
             behavior={Platform.OS === "ios" ? "padding" : undefined}
             style={{ flex: 1 }}
         >
+            <Stack.Screen options={{ title: 'My Products' }} />
             <SafeAreaView className='web:w-2/3 self-center flex-1'>
                 {/* <ScrollView> */}
                 {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
@@ -34,7 +35,7 @@ const ProductScreen = () => {
                     className=' border border-red-500 h-full'
                     data={data}
                     renderItem={({ item }) => <ProductListItem product={item} />}
-                    ListHeaderComponent={() => (<Text className='self-center p-4'>Manage products</Text>)}
+                    ListHeaderComponent={() => (<Text className='self-center text-2xl p-4'>Manage products</Text>)}
                     ListFooterComponent={() => (<AzButton className='self-center' onPress={() => { router.push('create') }} text='Create new product ...' />)}
                     numColumns={2}
                     contentContainerStyle={{ gap: 10, padding: 10 }}

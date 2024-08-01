@@ -1,6 +1,10 @@
 import { useAuth } from "@/src/providers/AuthProvider";
 import { Redirect, Stack } from "expo-router";
 import { ActivityIndicator, ImageBackground, View } from "react-native";
+// export const unstable_settings = {
+//     // Ensure that reloading on `/modal` keeps a back button present.
+//     initialRouteName: '(tabs)',
+// };
 
 export default function AppLayout() {
     const { session, loading } = useAuth()
