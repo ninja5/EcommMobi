@@ -152,11 +152,11 @@ const CreateProductScreen = () => {
                         disabled={false} />
                 </View>
                 <Text className='text-red-800 mt-4'>{errors}</Text>
-                <View className=' border flex-row web:w-1/3 p-3 items-center justify-between'>
-                    <AzButton text='Cancel' onPress={() => router.replace('product')} />
-                    <Text>  </Text>
-                    <AzButton text='Persist' onPress={onCreate} />
-                </View>
+                {/* <View className=' border flex-row web:w-1/3 p-3 items-center justify-between'>
+                     <AzButton text='Cancel' onPress={() => router.replace('product-admin')} />
+                    <Text>  </Text> */}
+                <AzButton text='Persist' onPress={onCreate} />
+                {/* </View> */}
             </ScrollView>
             <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
             {/* </SafeAreaView> */}

@@ -41,9 +41,9 @@ const RemoteImage = ({ path, fallback, ...imageProps }: RemoteImageProps) => {
         console.log('hit me harddd..');
 
     }
-    //console.log('remote image is', image.u);
+    console.log('remote image is ', image ? "ok" : image);
 
-    return <Image source={{ uri: image }} defaultSource={fallback} {...imageProps} />;
+    return <Image source={{ uri: image ? image : undefined }} defaultSource={fallback} {...imageProps} />;
 };
 
 export default RemoteImage;

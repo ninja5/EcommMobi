@@ -2,6 +2,7 @@ import { View, Text, FlatList, TouchableWithoutFeedback, Keyboard, ScrollView, S
 import React from 'react'
 import ProductListItem from '@/components/ProductListItem'
 import { useProductList } from '@/src/api/products';
+import { Stack } from 'expo-router';
 
 const HomeScreen = () => {
     const { data, isLoading, error } = useProductList();
@@ -20,6 +21,7 @@ const HomeScreen = () => {
             behavior={Platform.OS === "ios" ? "padding" : undefined}
             style={{ flex: 1 }}
         >
+            <Stack.Screen options={{ title: 'Menu' }} />
             <SafeAreaView className='web:w-2/3 self-center flex-1'>
                 {/* <ScrollView> */}
                 {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}

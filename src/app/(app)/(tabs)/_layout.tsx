@@ -6,14 +6,12 @@ import QueryProvider from '@/src/providers/QueryProvider';
 export default function TabLayout() {
     const { isAdmin } = useAuth()
     return (
-        // <QueryProvider>
         <Tabs screenOptions={{ tabBarActiveTintColor: 'blue' }}>
             <Tabs.Screen
                 name='(product)'
-                // component={HomeScreen}
                 options={{
                     title: 'Home',
-                    // href: '/index2',
+                    headerShown: false,
                     tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
                 }}
             />
@@ -31,7 +29,7 @@ export default function TabLayout() {
                     //href: 'product',
                     headerShown: false,
                     tabBarIcon: ({ color }) => <FontAwesome size={28} name="product-hunt" color={color} />,
-                    ...(isAdmin ? {} : { href: null }),
+                    ...(isAdmin ? {} : { href: null }), //hide component when not admin
                 }}
             />
             <Tabs.Screen

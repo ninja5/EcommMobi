@@ -21,7 +21,7 @@ const ProductListItem = ({ product }: any) => {
                 <RemoteImage
                     path={product.picture}
                     fallback={default_image}
-                    className='w-12 h-12 web:w-24 web:h-24 rounded-md'
+                    className='w-12 h-12 web:w-24 web:h-24 rounded-md self-center'
                     resizeMode="contain"
                 />
                 <View className='self-center flex-1 ml-4'>
