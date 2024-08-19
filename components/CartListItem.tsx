@@ -16,7 +16,7 @@ const CartListItem = ({ cartItem }: CartListItemProps) => {
     const { updateQuantity } = useCart();
 
     return (
-        <View style={styles.container}>
+        <View className='flex-1 flex-row items-center bg-amber-400 rounded-xl p-6'>
             <RemoteImage
                 path={cartItem.product.picture}
                 fallback={default_image}
@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
         aspectRatio: 1,
         alignSelf: 'center',
         marginRight: 10,
+        borderRadius: 7,
     },
     title: {
         fontWeight: '500',

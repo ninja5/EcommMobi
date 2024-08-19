@@ -14,6 +14,7 @@ type CartType = {
     addItem: (product: Product /*, size: CartItem['size']*/) => void;
     updateQuantity: (itemId: string, amount: -1 | 1) => void;
     total: number;
+    totalQuantity: number;
     checkout: () => void;
 };
 
@@ -22,6 +23,7 @@ const CartContext = createContext<CartType>({
     addItem: () => { },
     updateQuantity: () => { },
     total: 0,
+    totalQuantity: 0,
     checkout: () => { },
 });
 
@@ -72,12 +74,18 @@ const CartProvider = ({ children }: PropsWithChildren) => {
         (sum, item) => (sum += item.product.price * item.quantity),
         0
     );
+    const totalQuantity = items.reduce((quantity, item) => (quantity += item.quantity), 0)
 
     const clearCart = () => {
         setItems([]);
     };
 
     const checkout = async () => {
+        //todo
+        //1. get delivery address
+        //2. get payment method
+        //3. call payarc
+        //4. create the order
         // await initialisePaymentSheet(Math.floor(total * 100));
         // const payed = await openPaymentSheet();
         // if (!payed) {
@@ -110,7 +118,7 @@ const CartProvider = ({ children }: PropsWithChildren) => {
 
     return (
         <CartContext.Provider
-            value={{ items, addItem, updateQuantity, total, checkout }}
+            value={{ items, addItem, updateQuantity, total, totalQuantity, checkout }}
         >
             {children}
         </CartContext.Provider>
