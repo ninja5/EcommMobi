@@ -10,7 +10,8 @@ type CompProps = {
     placeholder: string | undefined,
     otherStyles: string | undefined,
     keyboardType: KeyboardTypeOptions | undefined,
-    disabled: boolean
+    disabled: boolean,
+    handleBlur: any,
 } & React.ComponentPropsWithoutRef<typeof TextInput>;
 
 // const AzTextInput1 = ({ title, value, handleChangeText, placeholder, otherStyles, ...props }) => {
@@ -30,7 +31,7 @@ type CompProps = {
 //     )
 // }
 const AzTextInput = forwardRef<View | null, CompProps>(
-    ({ title, value, handleChangeText, placeholder, otherStyles, keyboardType, ...pinputProps }, ref) => {
+    ({ title, value, handleChangeText, placeholder, otherStyles, keyboardType, handleBlur, ...pinputProps }, ref) => {
         const [showPassword, setshowPassword] = useState(false)
         return (
             <View className='mt-4 space-y-2'>
@@ -44,6 +45,7 @@ const AzTextInput = forwardRef<View | null, CompProps>(
                         onChangeText={handleChangeText}
                         keyboardType={keyboardType}
                         secureTextEntry={title === "Password" && !showPassword}
+                        onBlur={handleBlur}
                     />
                     {title === 'Password' && (<Pressable onPress={() => setshowPassword(!showPassword)}>
                         <FontAwesome size={28} name={showPassword ? "eye-slash" : "eye"} color="white" />

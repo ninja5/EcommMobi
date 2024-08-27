@@ -7,7 +7,7 @@ export default function ProductAdmLayout() {
 
     return (
         <Stack>
-            <Stack.Screen name="(product-admin)" options={{ title: 'Admin PROD', }} />
+            {/* <Stack.Screen name="(product-admin)" options={{ title: 'Admin PROD', }} /> */}
             {/* <Stack.Screen name="index2" options={{ title: 'use PROD', }} />
             <Stack.Screen name="[id]" options={{ title: 'Details', }} /> */}
             {/* <Stack.Screen name="product" options={{ title: 'MMMANAGE PROD', }} />

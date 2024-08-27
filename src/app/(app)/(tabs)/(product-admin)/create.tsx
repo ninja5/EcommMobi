@@ -85,7 +85,7 @@ const CreateProductScreen = () => {
             .from('product-images')
             .upload(filePath, decode(base64), { contentType });
         if (error)
-            setErrors(`Upload image: ${error?.error}, ${error?.message}`)
+            setErrors(`Upload image: ${error}, ${error?.message}`)
         console.log('Error upload', error);
         console.log('data upload', data);
         if (data) {
@@ -133,7 +133,7 @@ const CreateProductScreen = () => {
                         placeholder={'enter product name...'}
                         otherStyles={undefined}
                         keyboardType={undefined}
-                        disabled={false} />
+                        disabled={false} handleBlur={undefined} />
                     <AzTextInput
                         title={'Description'}
                         value={description}
@@ -141,7 +141,7 @@ const CreateProductScreen = () => {
                         placeholder={'enter product description...'}
                         otherStyles={undefined}
                         keyboardType={undefined}
-                        disabled={false} />
+                        disabled={false} handleBlur={undefined} />
                     <AzTextInput
                         title={'Base price'}
                         value={price}
@@ -149,7 +149,7 @@ const CreateProductScreen = () => {
                         placeholder={'enter product base price...'}
                         otherStyles={undefined}
                         keyboardType={'decimal-pad'}
-                        disabled={false} />
+                        disabled={false} handleBlur={undefined} />
                 </View>
                 <Text className='text-red-800 mt-4'>{errors}</Text>
                 {/* <View className=' border flex-row web:w-1/3 p-3 items-center justify-between'>

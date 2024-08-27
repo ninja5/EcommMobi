@@ -65,13 +65,13 @@ const profileScreen = () => {
                                         value={currentUser.full_name}
                                         handleChangeText={(e: any) => setCurrentUser({ ...currentUser, full_name: e })}
                                         otherStyles="mt-7"
-                                        keyboardType='default' placeholder={undefined} disabled={false} />
+                                        keyboardType='default' placeholder={undefined} disabled={false} handleBlur={undefined} />
                                     <AzTextInput
                                         title="Account name"
                                         value={currentUser.username}
                                         handleChangeText={(e: any) => setCurrentUser({ ...currentUser, username: e })}
                                         otherStyles="mt-7"
-                                        keyboardType='default' placeholder={undefined} disabled={false} />
+                                        keyboardType='default' placeholder={undefined} disabled={false} handleBlur={undefined} />
                                     {/* <AzTextInput
                                         title="Email"
                                         value={currentUser.email}
