@@ -5,6 +5,7 @@ import { randomUUID } from 'expo-crypto';
 import { useInsertOrder } from '@/src/api/orders';
 import { useRouter } from 'expo-router';
 import { useInsertOrderItems } from '@/src/api/orders';
+import { PayarcCustomerAdd, PayarcCustomerUpdate } from '@/lib/payarc';
 //import { initialisePaymentSheet, openPaymentSheet } from '@/lib/stripe';
 
 type Product = Tables<'products'>;
@@ -91,13 +92,17 @@ const CartProvider = ({ children }: PropsWithChildren) => {
         // if (!payed) {
         //     return;
         // }
+        //to test only
+        //const data = await PayarcCustomerAdd()
+        const data = await PayarcCustomerUpdate('cus_KNDnpVND4jAAVA4j', { phone: '08485833' })
+        console.log('Result in Cartprovider', data);
 
-        insertOrder(
-            { total },
-            {
-                onSuccess: saveOrderItems,
-            }
-        );
+        // insertOrder(
+        //     { total },
+        //     {
+        //         onSuccess: saveOrderItems,
+        //     }
+        // );
     };
 
     const saveOrderItems = (order: Tables<'orders'>) => {

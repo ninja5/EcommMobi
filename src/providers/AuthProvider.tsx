@@ -48,6 +48,8 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     const modUser = async function (params: UserAuth) {
         const { full_name, username, id } = params
         setLoading(true)
+        console.log('U are about to update user', user);
+
         const { error, data: newProduct } = await supabase
             .from('profiles')
             .update({
