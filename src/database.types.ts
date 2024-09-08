@@ -123,6 +123,7 @@ export type Database = {
           avatar_url: string | null
           full_name: string | null
           id: string
+          payarc_object_id: string | null
           profile: string
           updated_at: string | null
           username: string | null
@@ -132,6 +133,7 @@ export type Database = {
           avatar_url?: string | null
           full_name?: string | null
           id: string
+          payarc_object_id?: string | null
           profile?: string
           updated_at?: string | null
           username?: string | null
@@ -141,6 +143,7 @@ export type Database = {
           avatar_url?: string | null
           full_name?: string | null
           id?: string
+          payarc_object_id?: string | null
           profile?: string
           updated_at?: string | null
           username?: string | null

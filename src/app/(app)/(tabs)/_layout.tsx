@@ -8,6 +8,8 @@ import { View } from "@/components/Themed";
 export default function TabLayout() {
     const { isAdmin } = useAuth();
     const { totalQuantity } = useCart();
+    console.log('hi from (tabs) layout lvl3');
+
     return (
         <Tabs screenOptions={{ tabBarActiveTintColor: "blue" }}>
             <Tabs.Screen

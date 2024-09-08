@@ -5,11 +5,11 @@ import RemoteImage from './RemoteImage';
 import { Link, useSegments } from 'expo-router';
 
 const ProductListItem = ({ product }: any) => {
-    console.log('productlist item', product);
+    // console.log('productlist item', product);
     const segments = useSegments();
-    console.log('====================================');
-    console.log('segments are ', segments, segments.slice(-1)[0]);
-    console.log('====================================');
+    //console.log('====================================');
+    //console.log('segments are ', segments, segments.slice(-1)[0]);
+    //console.log('====================================');
     return (
         <Link href={`/${segments.slice(-1)[0]}/${product.id}`} asChild>
             <Pressable className=' flex-row p-2 bg-amber-400 rounded-md w-fullll w-1/2'>

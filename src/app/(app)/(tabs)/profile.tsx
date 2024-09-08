@@ -4,17 +4,18 @@ import AzButton from '@/components/AzButton'
 import supabase from '@/lib/supabase'
 import AzTextInput from '@/components/AzTextInput'
 import { useAuth } from '@/src/providers/AuthProvider'
+import { Redirect } from 'expo-router'
 
 const profileScreen = () => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | undefined>()
-    const { user, modUser } = useAuth()
+    const { session, user, modUser } = useAuth()
     const [currentUser, setCurrentUser] = useState(user)
     useEffect(() => {
         const getUser = async () => {
             setLoading(true)
             console.log('====================================');
-            console.log('Ura zarevdame ekrana');
+            console.log('Ura zarevdame ekrana ', user, currentUser);
             console.log('====================================');
             setCurrentUser({
                 ...user
@@ -25,12 +26,14 @@ const profileScreen = () => {
         return () => {
             console.log('====================================');
             console.log('destry object from profileScreen ');
+            console.log('session is', session);
             console.log('====================================');
         }
     }, [])
 
 
-    async function signOut() {
+    // async function signOut() {
+    const signOut = async () => {
         setLoading(true)
         const { error } = await supabase.auth.signOut()
         setError(error?.message)
@@ -38,6 +41,7 @@ const profileScreen = () => {
             setCurrentUser(user)
         }
         setLoading(false)
+        console.log('begin to sign out...', session);
     }
 
     const updateUser = async () => {

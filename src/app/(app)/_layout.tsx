@@ -1,6 +1,7 @@
 import { useAuth } from "@/src/providers/AuthProvider";
-import { Redirect, Stack } from "expo-router";
 import { ActivityIndicator, ImageBackground, View } from "react-native";
+import SignInScreen from "../sign-in";
+import { Stack, useSegments } from "expo-router";
 // export const unstable_settings = {
 //     // Ensure that reloading on `/modal` keeps a back button present.
 //     initialRouteName: '(tabs)',
@@ -8,6 +9,10 @@ import { ActivityIndicator, ImageBackground, View } from "react-native";
 
 export default function AppLayout() {
     const { session, loading } = useAuth()
+    const segments = useSegments();
+
+
+    console.log('hi from (app) layout lvl2', session, loading);
     if (loading) {
         return (<View style={{ flex: 1, alignItems: "center" }}>
             <ImageBackground source={require('@/assets/images/background3.png')} resizeMode='contain' style={{ height: '100%', width: '100%', aspectRatio: 1 }}>
@@ -19,10 +24,11 @@ export default function AppLayout() {
         )
     }
     if (!session) {
-        return <Redirect href='/sign-in' />
-    }
-    return (<Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        {/* <Stack.Screen name="(product)" options={{ presentation: 'modal' }} /> */}
-    </Stack>)
+        console.log('reve mi se.....', session, loading, segments)
+        return <SignInScreen /> //<Redirect href='/sign-in' />
+    } else
+        return (<Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            {/* <Stack.Screen name="(product)" options={{ presentation: 'modal' }} /> */}
+        </Stack>)
 }

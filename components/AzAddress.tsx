@@ -5,7 +5,7 @@ import Colors from '@/constants/Colors';
 import AzTextInput from './AzTextInput';
 import { PlaceAutocompletePrediction } from '@/src/types';
 
-const AzAddress = () => {
+const AzAddress = ({ updateAddress }) => {
     const [inputAddress, setInputAddress] = useState<string>('')
     const [suggestions, setSuggestions] = useState<PlaceAutocompletePrediction[]>([]);
     const [selectedValue, setSelectedValue] = useState('');
@@ -52,6 +52,8 @@ const AzAddress = () => {
         setSuggestions([]);
         setSelectedValue(item.description);
         setInputAddress(item.description);
+
+        updateAddress(item)
     };
 
     return (

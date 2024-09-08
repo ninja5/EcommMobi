@@ -49,8 +49,11 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
 // only be registered once.
 AppState.addEventListener("change", (state) => {
   if (state === "active") {
+    console.log("hi from addevenntlistner -active");
+
     supabase.auth.startAutoRefresh();
   } else {
+    console.log("hi from addevenntlistner - inactive");
     supabase.auth.stopAutoRefresh();
   }
 });

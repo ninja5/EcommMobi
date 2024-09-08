@@ -2,11 +2,11 @@ import { Alert } from "react-native";
 import supabase from "./supabase";
 
 //Customers
-export const PayarcCustomerAdd = async () => {
+export const PayarcCustomerAdd = async (customer: any) => {
     const { data, error } = await supabase.functions.invoke("customer-add", {
         // method: "POST",
         body: {
-            customer: { name: "Ziki", email: "naxxnana@baba.com" },
+            customer: customer,
         },
         // headers: { "Content-Type": "application/json" },
     });

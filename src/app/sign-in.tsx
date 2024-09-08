@@ -35,6 +35,8 @@ const SignInScreen = () => {
 
   }
 
+  console.log('hi, from sign-in.tsx');
+
 
   return (
     <KeyboardAvoidingView

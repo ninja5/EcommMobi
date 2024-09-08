@@ -43,6 +43,8 @@ export default function RootLayout() {
   }, [error]);
 
   useEffect(() => {
+    console.log('hi, from useEffect of layaout', loaded);
+
     if (loaded) {
       SplashScreen.hideAsync();
     }
@@ -54,11 +56,13 @@ export default function RootLayout() {
   NativeWindStyleSheet.setOutput({
     default: "native",
   });
+
   return <RootLayoutNav />;
 }
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
+  console.log('ot tuka sme minali lvl 1');
 
   return (
     <AuthProvider>

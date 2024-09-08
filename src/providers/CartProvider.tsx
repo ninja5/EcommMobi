@@ -35,6 +35,7 @@ const CartProvider = ({ children }: PropsWithChildren) => {
     const { mutate: insertOrderItems } = useInsertOrderItems();
 
     const router = useRouter();
+    console.log('hi from CartProvider');
 
     const addItem = (product: Product /*, size: CartItem['size']*/) => {
         // if already in cart, increment quantity
@@ -120,6 +121,7 @@ const CartProvider = ({ children }: PropsWithChildren) => {
             },
         });
     };
+    console.log('bye from card provider');
 
     return (
         <CartContext.Provider
