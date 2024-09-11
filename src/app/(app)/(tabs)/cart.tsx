@@ -39,11 +39,11 @@ const CartScreen = () => {
             style={{ flex: 1 }}
         >
             {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
-            <SafeAreaView className=' flex-1 p-2 bg-amber-300 rounded-md w-full web:self-center web:w-2/3'>
-                <FlatList
+            <SafeAreaView className=' flex-1 p-2 bg-amber-300  rounded-md w-full web:self-center web:w-2/3'>
+                <FlatList className='border-slate-800 w-full h-2/3'
                     data={items}
                     renderItem={({ item }) => <CartListItem cartItem={item} />}
-                    contentContainerStyle={{ gap: 10 }}
+                    contentContainerStyle={{ gap: 5 }}
                 />
 
                 <Text style={{ marginTop: 20, fontSize: 20, fontWeight: '500' }}>
@@ -51,7 +51,7 @@ const CartScreen = () => {
                 </Text>
                 {deliveryAddress?.description ? (<Text className='text-lg px-1 pt-2'>{deliveryAddress?.description}</Text>) : (<AzAddress updateAddress={setDeliveryAddress} />)}
 
-                <AzButton className='self-center mb-4 disabled:1' onPress={checkout} text="Checkout" />
+                <AzButton className='self-center mb-4 disabled:1' onPress={checkout} disabled={!!!deliveryAddress?.description} text="Checkout" />
 
                 <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
             </SafeAreaView>
