@@ -7,14 +7,16 @@ import CartListItem from '@/components/CartListItem';
 import AzButton from '@/components/AzButton';
 import AzAddress from '@/components/AzAddress';
 import { useEffect, useState } from 'react';
-import { PlaceAutocompletePrediction } from '@/src/types';
+import { CCard, PlaceAutocompletePrediction } from '@/src/types';
 import { useAuth } from '@/src/providers/AuthProvider';
 import { PayarcCustomerUpdate } from '@/lib/payarc';
+import CCList from '@/components/CCardComponent/CCList';
 
 const CartScreen = () => {
     const { items, total, checkout, totalQuantity } = useCart();
     const { user } = useAuth()
     const [deliveryAddress, setDeliveryAddress] = useState<PlaceAutocompletePrediction | null>(null)
+    const [creditCard, setCreditCard] = useState<CCard | null>(null)
     useEffect(() => {
         const updatePayarcAddress = async () => {
             if (user.payarc_object_id && deliveryAddress?.description) {
@@ -40,7 +42,7 @@ const CartScreen = () => {
         >
             {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
             <SafeAreaView className=' flex-1 p-2 bg-amber-300  rounded-md w-full web:self-center web:w-2/3'>
-                <FlatList className='border-slate-800 w-full h-2/3'
+                <FlatList className='border-slate-800 w-full h-1/3'
                     data={items}
                     renderItem={({ item }) => <CartListItem cartItem={item} />}
                     contentContainerStyle={{ gap: 5 }}
@@ -50,6 +52,8 @@ const CartScreen = () => {
                     Total: ${total}
                 </Text>
                 {deliveryAddress?.description ? (<Text className='text-lg px-1 pt-2'>{deliveryAddress?.description}</Text>) : (<AzAddress updateAddress={setDeliveryAddress} />)}
+
+                {(deliveryAddress?.description && !creditCard) ? (<CCList updateSelection={setCreditCard} />) : ((deliveryAddress?.description && creditCard) ? (<Text className='text-lg px-1 pt-2'>{creditCard?.first6digit}</Text>) : null)}
 
                 <AzButton className='self-center mb-4 disabled:1' onPress={checkout} disabled={!!!deliveryAddress?.description} text="Checkout" />
 

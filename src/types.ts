@@ -81,3 +81,33 @@ export type PlaceAutocompletePrediction = {
     }>;
     types: string[];
 };
+
+export type CCard = {
+    object?: string | null;
+    id?: string | null;
+    address1?: string | null;
+    address2?: string | null;
+    card_source?: string | null;
+    card_holder_name?: string | null;
+    is_default?: number | null;
+    exp_month?: string | null;
+    exp_year?: string | null;
+    is_verified?: number | null;
+    fingerprint?: string | null;
+    city?: string | null;
+    state?: string | null;
+    zip?: string | null;
+    brand?: string | null;
+    last4digit?: string | null;
+    first6digit?: string | null;
+    country?: string | null;
+    avs_status?: string | null;
+    cvc_status?: string | null;
+    address_check_passed?: number | null;
+    zip_check_passed?: 0;
+    customer_id?: string | null;
+    created_at?: number | null;
+    updated_at?: number | null;
+    // Allows additional attributes of any type
+    [key: string]: any;
+};
