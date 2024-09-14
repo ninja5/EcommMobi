@@ -5,7 +5,7 @@ import { randomUUID } from 'expo-crypto';
 import { useInsertOrder } from '@/src/api/orders';
 import { useRouter } from 'expo-router';
 import { useInsertOrderItems } from '@/src/api/orders';
-import { PayarcCustomerAdd, PayarcCustomerUpdate } from '@/lib/payarc';
+import { PayarcChargeCreate, PayarcCustomerAdd, PayarcCustomerUpdate } from '@/lib/payarc';
 //import { initialisePaymentSheet, openPaymentSheet } from '@/lib/stripe';
 
 type Product = Tables<'products'>;
@@ -84,12 +84,26 @@ const CartProvider = ({ children }: PropsWithChildren) => {
 
     const checkout = async (deliveryAddress: PlaceAutocompletePrediction, paymentInstrument: CCard) => {
         const charge = {
-            amount: Math.round(totalQuantity * 100),
+            amount: Math.round(total * 100),
             currency: 'usd',
             source: {
                 card_id: paymentInstrument.object_id,
                 customer_id: 'cus_' + paymentInstrument.customer_id,
             }
+        }
+        console.log('Result in Cartprovider', charge);
+        try {
+            const data = await PayarcChargeCreate(charge)
+            console.log('result from payarc PayarcChargeCreate is ', data);
+
+            insertOrder(
+                { total },
+                {
+                    onSuccess: saveOrderItems,
+                }
+            );
+        } catch (error) {
+            console.log('Error result from payarc PayarcChargeCreate is ', error);
         }
         //todo
         //1. get delivery address
@@ -104,14 +118,8 @@ const CartProvider = ({ children }: PropsWithChildren) => {
         //to test only
         //const data = await PayarcCustomerAdd()
         //const data = await PayarcCustomerUpdate('cus_KNDnpVND4jAAVA4j', { phone: '08485833' })
-        console.log('Result in Cartprovider', charge);
 
-        // insertOrder(
-        //     { total },
-        //     {
-        //         onSuccess: saveOrderItems,
-        //     }
-        // );
+
     };
 
     const saveOrderItems = (order: Tables<'orders'>) => {
@@ -125,7 +133,7 @@ const CartProvider = ({ children }: PropsWithChildren) => {
         insertOrderItems(orderItems, {
             onSuccess() {
                 clearCart();
-                router.push(`/(user)/orders/${order.id}`);
+                router.push(`/`);
             },
         });
     };

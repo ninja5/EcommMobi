@@ -74,6 +74,7 @@ export const PayarcCustomerRetrieve = async (
         return result;
     }
 };
+//Credit Cards
 export const PayarcAddCreditCard = async (
     payarcObjectId: string,
     cardData: CCard,
@@ -107,4 +108,28 @@ export const PayarcAddCreditCard = async (
         delete result.input;
         return result;
     }
+};
+
+//Charges
+export const PayarcChargeCreate = async (charge: any) => {
+    const { data, error } = await supabase.functions.invoke("charge-create", {
+        // method: "POST",
+        body: {
+            charge: charge,
+        },
+        // headers: { "Content-Type": "application/json" },
+    });
+    if (data && data.errorCode) {
+        console.log(
+            "Error from PayarcChargeCreate",
+            data,
+            data.errorDataMessage,
+            data.errorList,
+        );
+        Alert.alert(`Error PayarcChargeCreate: ${error?.message ?? "no data"}`);
+    }
+    if (data) {
+        return data;
+    }
+    return {};
 };

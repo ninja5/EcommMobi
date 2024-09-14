@@ -3,21 +3,37 @@
 // This enables autocomplete, go to definition, etc.
 
 // Setup type definitions for built-in Supabase Runtime APIs
-import "https://esm.sh/@supabase/functions-js/src/edge-runtime.d.ts"
-
-console.log("Hello from Functions!")
+import "https://esm.sh/@supabase/functions-js/src/edge-runtime.d.ts";
+import Payarc from "npm:payarc-sdk@0.0.7";
+import axios from "npm:axios";
+import { corsHeaders } from "../_shared/cors.ts";
 
 Deno.serve(async (req) => {
-  const { name } = await req.json()
-  const data = {
-    message: `Hello ${name}!`,
+  if (req.method === "OPTIONS") {
+    return new Response("ok", { headers: corsHeaders });
   }
+  const { charge } = await req.json();
+  const payarc = new Payarc(
+    Deno.env.get("PAYARC_SECRET_KEY")!,
+    "sandbox",
+    undefined,
+    undefined,
+    undefined,
+  );
 
-  return new Response(
-    JSON.stringify(data),
-    { headers: { "Content-Type": "application/json" } },
-  )
-})
+  try {
+    const data = await payarc.charges.create(charge);
+    return new Response(
+      JSON.stringify({ ...data, input: { ...charge } }),
+      { headers: { ...corsHeaders, "Content-Type": "application/json" } },
+    );
+  } catch (error) {
+    return new Response(
+      JSON.stringify({ ...error, input: { ...charge } }),
+      { headers: { ...corsHeaders, "Content-Type": "application/json" } },
+    );
+  }
+});
 
 /* To invoke locally:
 
