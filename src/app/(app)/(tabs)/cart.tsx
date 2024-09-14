@@ -51,12 +51,18 @@ const CartScreen = () => {
                 <Text style={{ marginTop: 20, fontSize: 20, fontWeight: '500' }}>
                     Total: ${total}
                 </Text>
-                {deliveryAddress?.description ? (<Text className='text-lg px-1 pt-2'>{deliveryAddress?.description}</Text>) : (<AzAddress updateAddress={setDeliveryAddress} />)}
+                {deliveryAddress?.description ? (<Text className='text-lg px-1 pt-2'>Delivery to: {deliveryAddress?.description}</Text>) : (<AzAddress updateAddress={setDeliveryAddress} />)}
 
-                {(deliveryAddress?.description && !creditCard) ? (<CCList updateSelection={setCreditCard} />) : ((deliveryAddress?.description && creditCard) ? (<Text className='text-lg px-1 pt-2'>{creditCard?.first6digit}</Text>) : null)}
+                {(deliveryAddress?.description && !creditCard) ? (<CCList updateSelection={setCreditCard} />) : ((deliveryAddress?.description && creditCard) ? (<Text className='text-lg px-1 pt-2'>Pay with: {creditCard?.first6digit} ... {creditCard?.last4digit}</Text>) : null)}
 
-                <AzButton className='self-center mb-4 disabled:1' onPress={checkout} disabled={!!!deliveryAddress?.description} text="Checkout" />
-
+                <AzButton className='self-center mb-4 disabled:1'
+                    onPress={
+                        () => {
+                            if (!!deliveryAddress && !!creditCard) {
+                                checkout(deliveryAddress, creditCard)
+                            }
+                        }
+                    } disabled={(!!!deliveryAddress?.description || !!!creditCard)} text="Checkout" />
                 <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
             </SafeAreaView>
             {/* </TouchableWithoutFeedback> */}

@@ -92,6 +92,8 @@ export type CCard = {
     is_default?: number | null;
     exp_month?: string | null;
     exp_year?: string | null;
+    cvv?: number | null;
+    card_number?: number | null;
     is_verified?: number | null;
     fingerprint?: string | null;
     city?: string | null;
@@ -108,6 +110,34 @@ export type CCard = {
     customer_id?: string | null;
     created_at?: number | null;
     updated_at?: number | null;
+    // Allows additional attributes of any type
+    [key: string]: any;
+};
+
+export type Customer = {
+    id?: string | null;
+    object_id?: string | null;
+    object?: string;
+    customer_id?: string;
+    name?: string;
+    email?: string;
+    description?: string;
+    payment_overdue?: number;
+    send_email_address?: string;
+    cc_email_address?: string;
+    source_id?: string;
+    address_1?: string;
+    address_2?: string;
+    city?: string;
+    state?: string;
+    zip?: string;
+    phone?: string;
+    country?: string;
+    created_at?: number;
+    updated_at?: number;
+    readable_created_at?: string;
+    readable_updated_at?: string;
+    invoice_prefix?: string;
     // Allows additional attributes of any type
     [key: string]: any;
 };

@@ -1,5 +1,6 @@
 import { Alert } from "react-native";
 import supabase from "./supabase";
+import { CCard } from "@/src/types";
 
 //Customers
 export const PayarcCustomerAdd = async (customer: any) => {
@@ -28,6 +29,8 @@ export const PayarcCustomerUpdate = async (
     payarcObjectId: string,
     data: any,
 ) => {
+    console.log("hi from PayarcCustomerUpdate data is", data);
+
     const { data: result, error } = await supabase.functions.invoke(
         "customer-update",
         {
@@ -36,7 +39,7 @@ export const PayarcCustomerUpdate = async (
     );
     if (result && result.errorCode) {
         console.log(
-            "Error from PayarcCustomerAdd",
+            "Error from PayarcCustomerUpdate",
             result,
             result.errorDataMessage,
             result.errorList,
@@ -44,6 +47,64 @@ export const PayarcCustomerUpdate = async (
         Alert.alert(`Error: ${error?.message ?? "no data"}`);
     }
     if (result) {
+        return result;
+    }
+};
+export const PayarcCustomerRetrieve = async (
+    payarcObjectId: string,
+) => {
+    const { data: result, error } = await supabase.functions.invoke(
+        "customer-retrieve",
+        {
+            body: { object_id: payarcObjectId },
+        },
+    );
+    if (result && result.errorCode) {
+        console.log(
+            "Error from PayarcCustomerRetrievee",
+            result,
+            result.errorDataMessage,
+            result.errorList,
+        );
+        Alert.alert(
+            `Error: ${error?.message ?? "PayarcCustomerRetrievee no data"}`,
+        );
+    }
+    if (result) {
+        return result;
+    }
+};
+export const PayarcAddCreditCard = async (
+    payarcObjectId: string,
+    cardData: CCard,
+) => {
+    // const payload = { cards: [data] };
+    // return await PayarcCustomerUpdate(payarcObjectId, payload);
+    console.log("hi from PayarcAddCreditCard data is", cardData);
+
+    const { data: result, error } = await supabase.functions.invoke(
+        "customer-add-ccard",
+        {
+            body: {
+                object_id: payarcObjectId,
+                data: {
+                    ...cardData,
+                    card_source: cardData.card_source || "INTERNET",
+                },
+            },
+        },
+    );
+    if (result && result.errorCode) {
+        console.log(
+            "Error from PayarcAddCreditCard",
+            result,
+            result.errorDataMessage,
+            result.errorList,
+        );
+        Alert.alert(`Error: ${error?.message ?? "no data"}`);
+    }
+    if (result) {
+        delete result.input;
         return result;
     }
 };

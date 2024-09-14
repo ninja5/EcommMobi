@@ -1,5 +1,5 @@
 
-import { CartItem, Tables } from '@/src/types';
+import { CartItem, CCard, PlaceAutocompletePrediction, Tables } from '@/src/types';
 import { PropsWithChildren, createContext, useContext, useState } from 'react';
 import { randomUUID } from 'expo-crypto';
 import { useInsertOrder } from '@/src/api/orders';
@@ -16,7 +16,7 @@ type CartType = {
     updateQuantity: (itemId: string, amount: -1 | 1) => void;
     total: number;
     totalQuantity: number;
-    checkout: () => void;
+    checkout: (deliveryAddress: PlaceAutocompletePrediction, payment: CCard) => Promise<void>;
 };
 
 const CartContext = createContext<CartType>({
@@ -25,7 +25,7 @@ const CartContext = createContext<CartType>({
     updateQuantity: () => { },
     total: 0,
     totalQuantity: 0,
-    checkout: () => { },
+    checkout: async () => { },
 });
 
 const CartProvider = ({ children }: PropsWithChildren) => {
@@ -82,7 +82,15 @@ const CartProvider = ({ children }: PropsWithChildren) => {
         setItems([]);
     };
 
-    const checkout = async () => {
+    const checkout = async (deliveryAddress: PlaceAutocompletePrediction, paymentInstrument: CCard) => {
+        const charge = {
+            amount: Math.round(totalQuantity * 100),
+            currency: 'usd',
+            source: {
+                card_id: paymentInstrument.object_id,
+                customer_id: 'cus_' + paymentInstrument.customer_id,
+            }
+        }
         //todo
         //1. get delivery address
         //2. get payment method
@@ -95,8 +103,8 @@ const CartProvider = ({ children }: PropsWithChildren) => {
         // }
         //to test only
         //const data = await PayarcCustomerAdd()
-        const data = await PayarcCustomerUpdate('cus_KNDnpVND4jAAVA4j', { phone: '08485833' })
-        console.log('Result in Cartprovider', data);
+        //const data = await PayarcCustomerUpdate('cus_KNDnpVND4jAAVA4j', { phone: '08485833' })
+        console.log('Result in Cartprovider', charge);
 
         // insertOrder(
         //     { total },
