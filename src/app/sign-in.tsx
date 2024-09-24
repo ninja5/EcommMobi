@@ -30,7 +30,7 @@ const SignInScreen = () => {
       setError(error.message)
     } else {
       setError('')
-      router.replace('/')
+      router.replace('/(app)/(tabs)')
     }
 
   }

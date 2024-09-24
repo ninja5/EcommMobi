@@ -4,7 +4,7 @@ import AzButton from '@/components/AzButton'
 import supabase from '@/lib/supabase'
 import AzTextInput from '@/components/AzTextInput'
 import { useAuth } from '@/src/providers/AuthProvider'
-import { Redirect } from 'expo-router'
+import { Redirect, router } from 'expo-router'
 
 const profileScreen = () => {
     const [loading, setLoading] = useState(false)
@@ -42,6 +42,9 @@ const profileScreen = () => {
         }
         setLoading(false)
         console.log('begin to sign out...', session);
+        if (router.canDismiss())
+            router.dismissAll()
+        // router.replace('/')
     }
 
     const updateUser = async () => {

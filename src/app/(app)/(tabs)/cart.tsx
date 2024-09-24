@@ -59,7 +59,8 @@ const CartScreen = () => {
                     onPress={
                         () => {
                             if (!!deliveryAddress && !!creditCard) {
-                                checkout(deliveryAddress, creditCard)
+                                checkout(deliveryAddress,
+                                    { ...creditCard, customer_id: creditCard.customer_id ? 'cus_' + creditCard.customer_id : user.payarc_object_id })
                             }
                         }
                     } disabled={(!!!deliveryAddress?.description || !!!creditCard)} text="Checkout" />

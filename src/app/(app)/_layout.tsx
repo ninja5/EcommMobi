@@ -25,7 +25,7 @@ export default function AppLayout() {
     }
     if (!session) {
         console.log('reve mi se.....', session, loading, segments)
-        return <SignInScreen /> //<Redirect href='/sign-in' />
+        return <Stack /> //<Redirect href='/sign-in' />
     } else
         return (<Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />

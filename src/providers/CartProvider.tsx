@@ -88,7 +88,7 @@ const CartProvider = ({ children }: PropsWithChildren) => {
             currency: 'usd',
             source: {
                 card_id: paymentInstrument.object_id,
-                customer_id: 'cus_' + paymentInstrument.customer_id,
+                customer_id: paymentInstrument.customer_id,
             }
         }
         console.log('Result in Cartprovider', charge);
