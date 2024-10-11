@@ -1,15 +1,18 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Tabs } from "expo-router";
+import { Redirect, Tabs } from "expo-router";
 import { useAuth } from "@/src/providers/AuthProvider";
 import QueryProvider from "@/src/providers/QueryProvider";
 import { useCart } from "@/src/providers/CartProvider";
 import { View } from "@/components/Themed";
+import SignInScreen from "../../sign-in";
 
 export default function TabLayout() {
-    const { isAdmin } = useAuth();
+    const { isAdmin, session } = useAuth();
     const { totalQuantity } = useCart();
     console.log('hi from (tabs) layout lvl3');
-
+    if (!session) {
+        return (<SignInScreen />)
+    }
     return (
         <Tabs screenOptions={{ tabBarActiveTintColor: "blue" }}>
             <Tabs.Screen

@@ -32,6 +32,8 @@ export {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  console.log('hi from rootlayout...');
+
   const [loaded, error] = useFonts({
     SpaceMono: require("@/assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
@@ -56,6 +58,7 @@ export default function RootLayout() {
   NativeWindStyleSheet.setOutput({
     default: "native",
   });
+  console.log('bye from root layout ', loaded);
 
   return <RootLayoutNav />;
 }

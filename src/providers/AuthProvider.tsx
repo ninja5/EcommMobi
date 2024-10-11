@@ -6,7 +6,7 @@ interface UserAuth {
     avatar_url?: string,
     full_name: string,
     id: string,
-    profile: "USER" | "Afmin",
+    profile: "USER" | "ADMIN",
     username: string,
     website?: string,
     email: string,
@@ -36,17 +36,18 @@ const AuthContext = createContext<AuthData>({
     }
 })
 
+const initialUserState: UserAuth = {
+    full_name: '',
+    id: '',
+    profile: 'USER',
+    username: '',
+    email: '',
+    payarc_object_id: null,
+};
+
 export default function AuthProvider({ children }: PropsWithChildren) {
     const [session, setSession] = useState<Session | null>(null)
-    const [user, setUser] = useState<UserAuth>({
-        full_name: '',
-        id: '',
-        profile: 'USER',
-        username: '',
-        email: '',
-        payarc_object_id: null,
-
-    })
+    const [user, setUser] = useState<UserAuth>(initialUserState)
     const [loading, setLoading] = useState(true)
     const [isAdmin, setIsAdmin] = useState(false)
     const modUser = async function (params: UserAuth) {
@@ -116,6 +117,10 @@ export default function AuthProvider({ children }: PropsWithChildren) {
                     setIsAdmin(group?.profile === "ADMIN")
                     setUser({ ...user, ...group, email: session.user.email })
 
+                } else {
+                    console.log('Session is null, thus init user ans isadmin')
+                    setUser(initialUserState)
+                    setIsAdmin(false)
                 }
                 setLoading(false)
                 console.log('bye from fetchIsAdmin...');

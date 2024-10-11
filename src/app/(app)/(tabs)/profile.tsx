@@ -35,13 +35,14 @@ const profileScreen = () => {
     // async function signOut() {
     const signOut = async () => {
         setLoading(true)
+        console.log('begin to sign out...', session);
         const { error } = await supabase.auth.signOut()
         setError(error?.message)
         if (!error) {
             setCurrentUser(user)
         }
         setLoading(false)
-        console.log('begin to sign out...', session);
+        console.log('begin to redirect after sign out...', session);
         if (router.canDismiss())
             router.dismissAll()
         // router.replace('/')
