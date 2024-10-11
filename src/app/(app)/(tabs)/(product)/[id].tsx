@@ -44,9 +44,11 @@ const ProductDetailsScreen = () => {
                     className='w-4/5 aspect-square mt-6 web:w-1/3 rounded-md self-center'
                     resizeMode="contain"
                 />
-                <View className='ml-4 mb-2 justify-end flex-1'>
-                    <Text className='text-xl'>Price</Text>
-                    <Text className='self-start px-3  mt-2 rounded-md bg-amber-500 text-lg'>$ {product.price}</Text>
+                <View className='m-4 mb-2  absolute bottom-0 left-0 right-0'>
+                    <View className='items-center flex-row'>
+                        <Text className='text-xl pr-1'>Price</Text>
+                        <Text className='px-3 rounded-lg bg-amber-500 text-lg'>$ {product.price}</Text>
+                    </View>
                     <AzButton className='self-center' onPress={addToCart} text='Add to cart ...' />
                 </View>
 
