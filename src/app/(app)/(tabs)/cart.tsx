@@ -42,28 +42,31 @@ const CartScreen = () => {
         >
             {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
             <SafeAreaView className=' flex-1 p-2 bg-amber-300  rounded-md w-full web:self-center web:w-2/3'>
-                <FlatList className='border-slate-800 w-full h-1/3'
-                    data={items}
-                    renderItem={({ item }) => <CartListItem cartItem={item} />}
-                    contentContainerStyle={{ gap: 5 }}
-                />
+                <View>
+                    <FlatList className='border-slate-800 w-full'
+                        data={items}
+                        renderItem={({ item }) => <CartListItem cartItem={item} />}
+                        contentContainerStyle={{ gap: 5 }}
+                    />
+                </View>
+                <View className='mx-4 bg-purple-500 absolute bottom-0 left-0 right-0'>
+                    <Text style={{ marginTop: 20, fontSize: 20, fontWeight: '500' }}>
+                        Total: ${total}
+                    </Text>
+                    {deliveryAddress?.description ? (<Text className='text-lg px-1 pt-2'>Delivery to: {deliveryAddress?.description}</Text>) : (<AzAddress updateAddress={setDeliveryAddress} />)}
 
-                <Text style={{ marginTop: 20, fontSize: 20, fontWeight: '500' }}>
-                    Total: ${total}
-                </Text>
-                {deliveryAddress?.description ? (<Text className='text-lg px-1 pt-2'>Delivery to: {deliveryAddress?.description}</Text>) : (<AzAddress updateAddress={setDeliveryAddress} />)}
+                    {(deliveryAddress?.description && !creditCard) ? (<CCList updateSelection={setCreditCard} />) : ((deliveryAddress?.description && creditCard) ? (<Text className='text-lg px-1 pt-2'>Pay with: {creditCard?.first6digit} ... {creditCard?.last4digit}</Text>) : null)}
 
-                {(deliveryAddress?.description && !creditCard) ? (<CCList updateSelection={setCreditCard} />) : ((deliveryAddress?.description && creditCard) ? (<Text className='text-lg px-1 pt-2'>Pay with: {creditCard?.first6digit} ... {creditCard?.last4digit}</Text>) : null)}
-
-                <AzButton className='self-center mb-4 disabled:1'
-                    onPress={
-                        () => {
-                            if (!!deliveryAddress && !!creditCard) {
-                                checkout(deliveryAddress,
-                                    { ...creditCard, customer_id: creditCard.customer_id ? 'cus_' + creditCard.customer_id : user.payarc_object_id })
+                    <AzButton className='self-center mb-4 disabled:1'
+                        onPress={
+                            () => {
+                                if (!!deliveryAddress && !!creditCard) {
+                                    checkout(deliveryAddress,
+                                        { ...creditCard, customer_id: creditCard.customer_id ? 'cus_' + creditCard.customer_id : user.payarc_object_id })
+                                }
                             }
-                        }
-                    } disabled={(!!!deliveryAddress?.description || !!!creditCard)} text="Checkout" />
+                        } disabled={(!!!deliveryAddress?.description || !!!creditCard)} text="Checkout" />
+                </View>
                 <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
             </SafeAreaView>
             {/* </TouchableWithoutFeedback> */}

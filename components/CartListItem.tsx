@@ -16,12 +16,13 @@ const CartListItem = ({ cartItem }: CartListItemProps) => {
     const { updateQuantity } = useCart();
 
     return (
-        <View className='flex-1 flex-row items-center bg-amber-400 rounded-xl p-6'>
+        <View className='flex-row max-h-32 items-center bg-amber-400 rounded-xl p-6'>
             <RemoteImage
                 path={cartItem.product.picture}
                 fallback={default_image}
                 style={styles.image}
                 resizeMode="contain"
+                className='max-h-24'
             />
 
             <View style={{ flex: 1 }}>
