@@ -16,7 +16,7 @@ export default function TabLayout() {
     return (
         <Tabs screenOptions={{ tabBarActiveTintColor: "blue" }}>
             <Tabs.Screen
-                name="(product)"
+                name="product"
                 options={{
                     title: "Home",
                     headerShown: false,
@@ -45,7 +45,7 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
-                name="(product-admin)"
+                name="product-admin"
                 options={{
                     title: "Products",
                     //href: 'product',

@@ -9,7 +9,7 @@ export default function index() {
     console.log('Hi from THE index...', session);
 
     if (session) {
-        return (<Redirect href={'/(tabs)'} />)
+        return (<Redirect href={'/product'} />)
     }
     return (
         <SignInScreen />

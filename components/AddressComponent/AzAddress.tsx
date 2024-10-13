@@ -1,11 +1,12 @@
-import { View, Text, TextInput, Platform, FlatList, TouchableOpacity, Pressable } from 'react-native'
+import { View, Text, TextInput, Platform, FlatList, TouchableOpacity, Pressable, TouchableWithoutFeedback } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { randomUUID } from 'expo-crypto'
 import Colors from '@/constants/Colors';
-import AzTextInput from './AzTextInput';
-import { PlaceAutocompletePrediction } from '@/src/types';
+import AzTextInput from '../AzTextInput';
+import { GAddress, PlaceAutocompletePrediction } from '@/src/types';
+type UpdateSelectionType = (selectedItem: GAddress | null) => void;
 
-const AzAddress = ({ updateAddress }) => {
+const AzAddress: React.FC<{ updateAddress: UpdateSelectionType }> = ({ updateAddress }) => {
     const [inputAddress, setInputAddress] = useState<string>('')
     const [suggestions, setSuggestions] = useState<PlaceAutocompletePrediction[]>([]);
     const [selectedValue, setSelectedValue] = useState('');
@@ -36,7 +37,7 @@ const AzAddress = ({ updateAddress }) => {
                     result = await data.json()
                 }
                 setSuggestions(result?.predictions ? result?.predictions : [])
-                console.log('resultltltltlt', result, suggestions);
+                console.log('resultltltltlt', result, suggestions, ' prediction', result?.predictions);
 
             } catch (error) {
                 console.log('errrorororororor', error);
@@ -49,10 +50,11 @@ const AzAddress = ({ updateAddress }) => {
         getAPIData()
     }, [inputAddress])
     const handleSelect = (item: PlaceAutocompletePrediction) => {
-        setSuggestions([]);
+        console.log('hi from handlwSelect in combobox of the address,..', item);
+
+        setSuggestions([]); //this might not be needed as anyway it will call handleBlur
         setSelectedValue(item.description);
         setInputAddress(item.description);
-
         updateAddress(item)
     };
 
@@ -70,27 +72,38 @@ const AzAddress = ({ updateAddress }) => {
                     otherStyles={undefined}
                     keyboardType={undefined}
                     disabled={false}
-                    //handleBlur={undefined}
-                    handleBlur={() => {
-                        setTimeout(() => {
-                            setSuggestions([]);
-                        }, 200);
-                    }}
+                    handleBlur={undefined}
+                //handleFocus={() => setIsInteractingWithList(false)}
+                // handleBlur={() => {
+                //     console.log('hi from hangl blur');
+
+                //     if (!isInteractingWithList) {
+                //         setTimeout(() => {
+                //             console.log('iztrivame rezultata');
+                //             setSuggestions([]);
+                //         }, 200);
+                //     }
+                // }}
                 />
                 {suggestions.length > 0 && (
                     <FlatList
                         className="mt-2 border border-gray-300 rounded max-h-60"
                         data={suggestions}
                         keyExtractor={(item, index) => index.toString()}
+                        keyboardShouldPersistTaps="always"
                         renderItem={({ item }) => (
-                            <Pressable
+                            <TouchableWithoutFeedback
                                 className="p-3 border-b border-gray-200"
                                 onPress={() => {
+                                    console.log('hi from towa predi on blur');
+
                                     handleSelect(item)
                                 }}
                             >
-                                <Text>{item.description}</Text>
-                            </Pressable>
+                                <View className="p-3 border-b border-gray-200">
+                                    <Text>{item.description}</Text>
+                                </View>
+                            </TouchableWithoutFeedback>
                         )} />
                 )}
             </View>

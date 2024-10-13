@@ -172,12 +172,12 @@ const CCList: React.FC<{ updateSelection: UpdateSelectionType }> = ({ updateSele
         }
     }
     if (gettingData) {
-        return (<View className='border border-blue-600 flex-1 p-4'>
+        return (<View className='self-center align-middle flex-1 p-4'>
             <ActivityIndicator />
         </View>)
     }
     return (
-        <View className='border border-blue-600 flex-1 p-4' >
+        <View className='flex-1 p-4' >
             <FlatList
                 data={[...cards, { id: 'addCard' }]} // Adding the "Add Card" item at the end
                 keyExtractor={(item) => item.id}

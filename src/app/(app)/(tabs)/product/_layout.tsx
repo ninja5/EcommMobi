@@ -15,6 +15,7 @@ export default function ProductLayout() {
             <Stack.Screen name="index2" options={{ title: 'use PROD', }} />
             <Stack.Screen name="create" options={{ title: 'Create new product', }} />
             <Stack.Screen name="[id]" options={{ title: 'Details', presentation: 'modal' }} /> */}
+            {/* <Stack.Screen name="checkout" options={{ presentation: 'modal' }} /> */}
         </Stack>
     )
 }

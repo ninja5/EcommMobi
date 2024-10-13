@@ -81,7 +81,13 @@ export type PlaceAutocompletePrediction = {
     }>;
     types: string[];
 };
-
+export type GAddress = {
+    description: string;
+    place_id?: string;
+    latitude?: number;
+    longitude?: number;
+    [key: string]: any;
+};
 export type CCard = {
     object?: string | null;
     id?: string | null;

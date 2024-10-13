@@ -1,5 +1,5 @@
 
-import { CartItem, CCard, PlaceAutocompletePrediction, Tables } from '@/src/types';
+import { CartItem, CCard, GAddress, PlaceAutocompletePrediction, Tables } from '@/src/types';
 import { PropsWithChildren, createContext, useContext, useState } from 'react';
 import { randomUUID } from 'expo-crypto';
 import { useInsertOrder } from '@/src/api/orders';
@@ -16,7 +16,7 @@ type CartType = {
     updateQuantity: (itemId: string, amount: -1 | 1) => void;
     total: number;
     totalQuantity: number;
-    checkout: (deliveryAddress: PlaceAutocompletePrediction, payment: CCard) => Promise<void>;
+    checkout: (deliveryAddress: PlaceAutocompletePrediction | GAddress, payment: CCard) => Promise<void>;
 };
 
 const CartContext = createContext<CartType>({
